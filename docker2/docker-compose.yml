@@ -1,0 +1,35 @@
+version: '3.8' # Asegúrate de usar una versión compatible
+
+services:
+  database_parcial_uno:
+    build:
+      context: ./MySQL
+      dockerfile: Docker7file
+    container_name: mysql_parcial_uno
+    restart: always
+    ports:
+      - 4500:4500
+    volumes:
+      - ./Config/mysql:/var/lib/mysql
+    hostname: apps_database
+    networks:
+      - eam_electiva
+    healthcheck:
+      test: [ "CMD", "mysql", "-u", "root", "-pB3122" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  adminer_electiva:
+    image: adminer
+    container_name: adminer_electiva
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - eam_electiva
+
+networks:
+  eam_electiva:
+    driver: bridge
+    name: eam_electiva
