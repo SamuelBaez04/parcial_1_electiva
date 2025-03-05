@@ -1,0 +1,17 @@
+service: parcialUno
+frameworkVersion: '3'
+
+plugins:
+  -serverless-offline
+
+provider:
+  name: aws
+  runtime: python3.9
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /hello
+          method: get
